@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import LoginForm from '../components/login'
+import LoginForm from '../components/signInForm'
 import styled from 'styled-components'
 import Header from '../components/header'
 

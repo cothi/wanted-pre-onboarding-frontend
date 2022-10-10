@@ -10,5 +10,3 @@ export function userValidation({ userInfo }) {
     }
     return errors
 }
-
-

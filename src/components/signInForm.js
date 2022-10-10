@@ -1,5 +1,5 @@
 import { Button, TextField } from '@mui/material'
-import { Form, redirect, useActionData, useNavigate } from 'react-router-dom'
+import { Form, useActionData, useNavigate } from 'react-router-dom'
 
 import styled from 'styled-components'
 
@@ -16,6 +16,7 @@ const ContentForm = styled.div`
 const Alert = styled.span`
     color: #f94449;
 `
+
 export default function LoginForm() {
     const nav = useNavigate()
     const errors = useActionData()
@@ -57,6 +58,7 @@ export default function LoginForm() {
                 variant="contained"
                 type="submit"
                 onClick={() => nav('/signup')}
+                sx={{ marginLeft: 1 }}
             >
                 sign up
             </Button>
