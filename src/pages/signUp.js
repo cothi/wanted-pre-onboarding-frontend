@@ -1,4 +1,4 @@
-import { Form, useSubmit } from 'react-router-dom'
+import { Form, useActionData, useSubmit } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
@@ -42,23 +42,42 @@ const InputForm = styled.input`
     border-radius: 4px;
 `
 
+const Alert = styled.span`
+    color: #f94449;
+`
+
 export default function SignUp() {
+    const errors = useActionData()
     return (
         <Wrapper>
             <FormWrapper>
                 <Form method="post">
                     <HeaderForm>Create your Todo Account</HeaderForm>
+
                     <ContentForm>
-                        <InputForm type="email" placeholder="Email" name="email"/>
+                        <InputForm
+                            type="email"
+                            placeholder="Email"
+                            name="email"
+                        />
                         <SupportForm>
-                            you'll need to confirm that your email belongs to
-                            you
+                            {(errors?.email && (
+                                <Alert> {errors.email} </Alert>
+                            )) ||
+                                "you'll need to confirm that your email belongs to"}
                         </SupportForm>
-                        <InputForm type="password" placeholder="Password" name="password" />
+                        <InputForm
+                            type="password"
+                            placeholder="Password"
+                            name="password"
+                        />
                         <SupportForm>
-                            Use 8 or more characters with a mix of letters,
-                            numbers & symbols
+                            {(errors?.password && (
+                                <Alert>{errors.password} </Alert>
+                            )) ||
+                                'Use 8 or more characters with a mix of letters, numbers & symbols'}
                         </SupportForm>
+                        {errors?.message && <Alert>{errors.message} </Alert>}
                     </ContentForm>
                     <input type="submit" value="Submit" />
                 </Form>

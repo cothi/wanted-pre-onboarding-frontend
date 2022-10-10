@@ -7,6 +7,7 @@ import Todo from './pages/todo'
 import SignUp from './pages/signUp'
 import ErrorPage from './pages/error-page'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { action as signUpAction } from './actions/signUp'
 
 // set router for dividing url of pages
 const router = createBrowserRouter([
@@ -19,11 +20,7 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <SignUp />,
         errorElement: <ErrorPage />,
-        action: async ({ request }) => {
-            let formData = await request.formData()
-            let email = formData.get('email')
-            console.log(email)
-        },
+        action: signUpAction,
     },
     {
         path: '/todo',

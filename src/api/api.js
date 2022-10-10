@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const END_POINT = 'http://192.168.0.6:8000'
 
+// auth api
 export const authApi = {
     signIn: ({ query }) => {
         const [emailQuery, passwordQuery] = query
@@ -28,11 +29,12 @@ export const authApi = {
                 password: passwordQuery,
             },
         })
-            .then((res) => res.data)
+            .then((res) => res)
             .catch((err) => err)
     },
 }
 
+// todo api
 export const todoApi = {
     addTodo: ({ itemQuery }) => {
         const [item, _, __] = itemQuery
