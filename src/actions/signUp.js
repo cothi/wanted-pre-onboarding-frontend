@@ -28,6 +28,8 @@ export async function action({ request }) {
         return errors
     }
     const data = res.data
-    alert("로그인 성공")
-    return redirect('/')
+    console.log(data)
+
+    localStorage.setItem('token', 'Bearer ' + data.access_token)
+    return redirect('/todo')
 }

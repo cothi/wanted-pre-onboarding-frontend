@@ -1,4 +1,6 @@
-import { Form, useActionData, useSubmit } from 'react-router-dom'
+import { Button, TextField } from '@mui/material'
+import { useEffect } from 'react'
+import { Form, useActionData, useNavigate, useSubmit } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
@@ -27,20 +29,6 @@ const ContentForm = styled.div`
     flex-direction: column;
     padding: 4% 0 4% 0;
 `
-const SupportForm = styled.div`
-    color: gray;
-    font-size: 14px;
-    padding: 0 0 3% 0;
-`
-const InputForm = styled.input`
-    height: 20px;
-    line-height: 24px;
-    font-size: 14px;
-    padding: 6px 8px 6px 8px;
-    /* border: rgb(255, 0, 0) dashed 1px; */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-`
 
 const Alert = styled.span`
     color: #f94449;
@@ -48,6 +36,14 @@ const Alert = styled.span`
 
 export default function SignUp() {
     const errors = useActionData()
+    const nav = useNavigate()
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if (token) {
+            nav('/')
+        }
+    })
     return (
         <Wrapper>
             <FormWrapper>
@@ -55,31 +51,37 @@ export default function SignUp() {
                     <HeaderForm>Create your Todo Account</HeaderForm>
 
                     <ContentForm>
-                        <InputForm
+                        <TextField
+                            id="standard-basic"
                             type="email"
-                            placeholder="Email"
+                            label="email"
+                            variant="standard"
+                            helperText={
+                                (errors?.email && (
+                                    <Alert> {errors.email} </Alert>
+                                )) ||
+                                "you'll need to confirm that your email belongs to"
+                            }
                             name="email"
                         />
-                        <SupportForm>
-                            {(errors?.email && (
-                                <Alert> {errors.email} </Alert>
-                            )) ||
-                                "you'll need to confirm that your email belongs to"}
-                        </SupportForm>
-                        <InputForm
+                        <TextField
+                            id="standard-basic"
                             type="password"
-                            placeholder="Password"
                             name="password"
+                            label="password"
+                            variant="standard"
+                            helperText={
+                                (errors?.password && (
+                                    <Alert>{errors.password} </Alert>
+                                )) ||
+                                'Use 8 or more characters with a mix of letters, numbers & symbols'
+                            }
                         />
-                        <SupportForm>
-                            {(errors?.password && (
-                                <Alert>{errors.password} </Alert>
-                            )) ||
-                                'Use 8 or more characters with a mix of letters, numbers & symbols'}
-                        </SupportForm>
                         {errors?.message && <Alert>{errors.message} </Alert>}
                     </ContentForm>
-                    <input type="submit" value="Submit" />
+                    <Button variant="contained" type="submit">
+                        sign up
+                    </Button>
                 </Form>
             </FormWrapper>
         </Wrapper>
