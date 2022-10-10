@@ -2,6 +2,7 @@ import { Button, TextField } from '@mui/material'
 import { useEffect } from 'react'
 import { Form, useActionData, useNavigate, useSubmit } from 'react-router-dom'
 import styled from 'styled-components'
+import Header from '../components/header'
 
 const Wrapper = styled.div`
     display: flex;
@@ -46,6 +47,7 @@ export default function SignUp() {
     })
     return (
         <Wrapper>
+        <Header/>
             <FormWrapper>
                 <Form method="post">
                     <HeaderForm>Create your Todo Account</HeaderForm>

@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Header from '../components/header'
 
 export default function Todo() {
     const nav = useNavigate()
@@ -9,5 +10,10 @@ export default function Todo() {
             nav('/')
         }
     }, [])
-    return <div>todo</div>
+    return (
+        <div>
+            <Header></Header>
+        Todo
+        </div>
+    )
 }

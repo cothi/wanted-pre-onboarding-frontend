@@ -10,15 +10,13 @@ export const authApi = {
             email: emailQuery,
             password: passwordQuery,
         })
-
-        return axios
-            .post({
-                method: 'post',
-                headers: { 'content-type': 'application/json' },
-                url: `${END_POINT}/auth/signin`,
-                data: jsonQuery,
-            })
-            .then((res) => res.data)
+        return axios({
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            url: `${END_POINT}/auth/signin`,
+            data: jsonQuery,
+        })
+            .then((res) => res)
             .catch((err) => err)
     },
     signUp: ({ query }) => {
@@ -27,7 +25,6 @@ export const authApi = {
             email: emailQuery,
             password: passwordQuery,
         })
-        console.log(jsonQuery)
         return axios({
             method: 'post',
             headers: { 'Content-Type': 'application/json' },

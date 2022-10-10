@@ -7,7 +7,9 @@ import Todo from './pages/todo'
 import SignUp from './pages/signUp'
 import ErrorPage from './pages/error-page'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { action as signUpAction } from './actions/signUp'
+import signUpAction from './actions/signUp'
+import signInAction from './actions/signIn'
+import Header from './components/header'
 
 // set router for dividing url of pages
 const router = createBrowserRouter([
@@ -15,6 +17,7 @@ const router = createBrowserRouter([
         path: '/',
         element: <Root />,
         errorElement: <ErrorPage />,
+        action: signInAction,
     },
     {
         path: '/signup',
