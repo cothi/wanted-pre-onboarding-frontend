@@ -4,6 +4,7 @@ import './index.css'
 import reportWebVitals from './reportWebVitals'
 import Root from './pages/root'
 import Todo from './pages/todo'
+import SignUp from './pages/signUp'
 import ErrorPage from './pages/error-page'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
@@ -16,8 +17,13 @@ const router = createBrowserRouter([
     },
     {
         path: '/signup',
-        element: <div>signup</div>,
+        element: <SignUp />,
         errorElement: <ErrorPage />,
+        action: async ({ request }) => {
+            let formData = await request.formData()
+            let email = formData.get('email')
+            console.log(email)
+        },
     },
     {
         path: '/todo',
