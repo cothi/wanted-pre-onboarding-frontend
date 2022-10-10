@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import {  useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import CreateForm from '../components/signUpForm'
 import styled from 'styled-components'
 import Header from '../components/header'
@@ -22,7 +22,7 @@ const FormWrapper = styled.div`
     display: flex;
     flex-direction: column;
     padding: 4%;
-    width: 70%;
+    width: 50%;
     height: 50%;
     border: 1px solid #ccc;
     border-radius: 10px;

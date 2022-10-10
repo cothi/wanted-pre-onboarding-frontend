@@ -9,7 +9,6 @@ import ErrorPage from './pages/error-page'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import signUpAction from './actions/signUp'
 import signInAction from './actions/signIn'
-import Header from './components/header'
 
 // set router for dividing url of pages
 const router = createBrowserRouter([
