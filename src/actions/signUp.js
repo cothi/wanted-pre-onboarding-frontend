@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { redirect } from 'react-router-dom'
 import { authApi as auth } from '../api/api'
 import * as vali from '../utils/validation'
@@ -13,11 +14,12 @@ export default async function signUpAction({ request }) {
     }
 
     const res = await auth.signUp({ query: query })
-    if (res.status !== 201) {
+    if (axios.isAxiosError(res)) {
         errors.status = res.response.status
         errors.message = res.response.data.message
         return errors
     }
+    console.log(res)
     const data = res.data
     localStorage.setItem('token', 'Bearer ' + data.access_token)
     return redirect('/todo')

@@ -1,6 +1,7 @@
 import { authApi as auth } from '../api/api'
 import { userValidation } from '../utils/validation'
 import { redirect } from 'react-router-dom'
+import axios from 'axios'
 
 export default async function signInAction({ request }) {
     let formData = await request.formData()
@@ -14,8 +15,8 @@ export default async function signInAction({ request }) {
     }
 
     const res = await auth.signIn({ query: query })
-    console.log(res)
-    if (res.status !== 200) {
+
+    if (axios.isAxiosError(res)) {
         errors.status = res.response.status
         errors.message = res.response.data.message
         return errors

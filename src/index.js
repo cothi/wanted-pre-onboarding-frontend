@@ -6,10 +6,15 @@ import Root from './pages/root'
 import Todo from './pages/todo'
 import SignUp from './pages/signUp'
 import ErrorPage from './pages/error-page'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
 import signUpAction from './actions/signUp'
 import signInAction from './actions/signIn'
+import todoAction from './actions/todos'
+import { todoApi } from './api/api'
+import { red } from '@mui/material/colors'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 
+import axios from 'axios'
 // set router for dividing url of pages
 const router = createBrowserRouter([
     {
@@ -17,24 +22,59 @@ const router = createBrowserRouter([
         element: <Root />,
         errorElement: <ErrorPage />,
         action: signInAction,
+        loader: async () => {
+            const token = localStorage.getItem('token')
+            if (token) {
+                return redirect('/todo')
+            }
+        },
     },
     {
         path: '/signup',
         element: <SignUp />,
         errorElement: <ErrorPage />,
         action: signUpAction,
+        loader: async () => {
+            const token = localStorage.getItem('token')
+            if (token) {
+                return redirect('/todo')
+            }
+        },
     },
     {
         path: '/todo',
         element: <Todo />,
         errorElement: <ErrorPage />,
+        action: todoAction,
+        loader: async () => {
+            const token = localStorage.getItem('token')
+            if (!token) {
+                return redirect('/')
+            }
+
+            let errors = {}
+            const res = await todoApi.getTodos({ token: token })
+
+            if (axios.isAxiosError(res)) {
+                errors.status = res.response.status
+                errors.message = res.response.data.message
+                return errors
+            }
+
+            return res.data
+        },
     },
 ])
+const theme = createTheme({
+    palette: {},
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <ThemeProvider theme={theme}>
+            <RouterProvider router={router} />
+        </ThemeProvider>
     </React.StrictMode>
 )
 

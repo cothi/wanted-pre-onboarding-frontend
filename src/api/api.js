@@ -38,34 +38,63 @@ export const authApi = {
 
 // todo api
 export const todoApi = {
-    addTodo: ({ itemQuery }) => {
-        const [item, _, __] = itemQuery
-        return axios({
-            method: 'post',
-            url: `${END_POINT}/todos`,
+    createTodo: ({ itemQuery }) => {
+        const [item, token] = itemQuery
+        const jsonQuery = JSON.stringify({
             data: {
                 todo: item,
             },
         })
-            .then((res) => res.data)
-            .catch((err) => err)
-    },
-    getTodos: () => {
         return axios({
-            method: 'get',
+            method: 'post',
             url: `${END_POINT}/todos`,
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json',
+            },
+            data: {
+                todo: item,
+            },
         })
-            .then((res) => res.data)
+            .then((res) => res)
             .catch((err) => err)
     },
-    updateTodo: ({ itemQuery }) => {
-        const [_, id, token] = itemQuery
+    deleteTodo: ({ itemQuery }) => {
+        const [id, token] = itemQuery
         return axios({
             method: 'delete',
             url: `${END_POINT}/todos/${id}`,
-            headers: { Authorization: 'Bearer ' + token },
+            headers: { Authorization: token },
         })
-            .then((res) => res.data)
+            .then((res) => res)
             .catch((err) => err)
+    },
+    getTodos: ({ token }) => {
+        return axios({
+            method: 'get',
+            url: `${END_POINT}/todos`,
+            headers: { Authorization: token },
+        })
+            .then((res) => res)
+            .catch((err) => err)
+    },
+    updateTodo: ({ itemQuery }) => {
+        console.log(itemQuery)
+        const [id, token, todo, completed] = itemQuery
+        const jsonQuery = JSON.stringify({
+            todo: todo,
+            isCompleted: completed,
+        })
+        return axios({
+            method: 'put',
+            url: `${END_POINT}/todos/${id}`,
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json',
+            },
+            data: jsonQuery,
+        })
+            .then((res) => res)
+            .catch((err) => console.log(err))
     },
 }

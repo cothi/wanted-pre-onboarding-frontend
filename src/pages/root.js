@@ -29,13 +29,7 @@ const FormWrapper = styled.div`
 `
 
 export default function Root() {
-    const nav = useNavigate()
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        if (token) {
-            nav('/todo')
-        }
-    }, [])
+
     return (
         <Wrapper>
             <Header />

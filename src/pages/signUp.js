@@ -29,14 +29,7 @@ const FormWrapper = styled.div`
 `
 
 export default function SignUp() {
-    const nav = useNavigate()
 
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        if (token) {
-            nav('/')
-        }
-    })
     return (
         <Wrapper>
             <Header />
