@@ -26,8 +26,8 @@ export default function LoginForm() {
 
             <ContentForm>
                 <TextField
+                    error={errors?.email ? true : false}
                     id="standard-basic"
-                    type="email"
                     label="email"
                     variant="standard"
                     helperText={
@@ -37,6 +37,7 @@ export default function LoginForm() {
                     name="email"
                 />
                 <TextField
+                    error={errors?.password ? true : false}
                     id="standard-basic"
                     type="password"
                     name="password"

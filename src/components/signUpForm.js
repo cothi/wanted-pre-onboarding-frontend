@@ -23,6 +23,7 @@ export default function CreateForm() {
 
             <ContentForm>
                 <TextField
+                    error={errors?.email ? true : false}
                     id="standard-basic"
                     type="email"
                     label="email"
@@ -34,6 +35,7 @@ export default function CreateForm() {
                     name="email"
                 />
                 <TextField
+        error={errors?.password ? true : false}
                     id="standard-basic"
                     type="password"
                     name="password"

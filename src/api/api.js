@@ -41,9 +41,7 @@ export const todoApi = {
     createTodo: ({ itemQuery }) => {
         const [item, token] = itemQuery
         const jsonQuery = JSON.stringify({
-            data: {
                 todo: item,
-            },
         })
         return axios({
             method: 'post',
@@ -52,9 +50,7 @@ export const todoApi = {
                 Authorization: token,
                 'Content-Type': 'application/json',
             },
-            data: {
-                todo: item,
-            },
+            data: jsonQuery,
         })
             .then((res) => res)
             .catch((err) => err)
@@ -95,6 +91,6 @@ export const todoApi = {
             data: jsonQuery,
         })
             .then((res) => res)
-            .catch((err) => console.log(err))
+            .catch((err) => err)
     },
 }

@@ -6,6 +6,7 @@ import logout from '../utils/logout'
 import Avatar from '@mui/material/Avatar'
 import { useEffect, useState } from 'react'
 import Tooltip from '@mui/material/Tooltip'
+import { decodeBase64 } from '../utils/decode'
 
 const Wrapper = styled.div`
     display: flex;
@@ -27,6 +28,11 @@ const HeaderItem = styled.div`
         cursor: pointer;
     }
 `
+const StyledLogoutIcon = styled(LogoutIcon)`
+    &:hover {
+        color: gray;
+    }
+`
 
 export default function Header() {
     const nav = useNavigate()
@@ -35,7 +41,9 @@ export default function Header() {
         const token = localStorage.getItem('token')
         if (token) {
             let payload = token.split('.')[1]
-            setMail(JSON.parse(atob(payload)).email)
+            // only atob function is deprecated
+            console.log(decodeBase64(payload))
+            setMail(JSON.parse(decodeBase64(payload)).email)
         }
     }, [])
     return (
@@ -51,7 +59,7 @@ export default function Header() {
                             <Avatar>{mail.slice(0, 2)}</Avatar>
                         </Tooltip>
                     ) : null}
-                    <LogoutIcon
+                    <StyledLogoutIcon
                         sx={{ fontSize: 40, marginLeft: 4 }}
                         onClick={() => logout({ nav: nav })}
                     />

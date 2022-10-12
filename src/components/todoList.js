@@ -31,9 +31,8 @@ export default function TodoList({ items }) {
     const [itemStatus, setItemStatus] = useState({})
     let submit = useSubmit()
     let data = new FormData()
-    const inputRef = useRef(null)
 
-    function reviseSetting(id, show) {
+    const editShow = (id, show) => {
         let status = itemStatus
         if (show) {
             status[id] = { status: 'edit' }
@@ -43,6 +42,18 @@ export default function TodoList({ items }) {
         }
     }
 
+    const callActionUpdate = (id, todo, isCompleted) => {
+        let tmpItemStatus = itemStatus
+        tmpItemStatus[id] = { ...tmpItemStatus[id], isCompleted: isCompleted }
+        data.set('id', id)
+        data.set('todo', todo)
+        data.set('completed', isCompleted)
+        submit(data, {
+            method: 'PUT',
+            action: '/todo',
+        })
+        setItemStatus(tmpItemStatus)
+    }
     const changeText = (id, e) => {
         let tmpItemStatus = itemStatus
         tmpItemStatus[id]['todo'] = e.target.value
@@ -68,22 +79,12 @@ export default function TodoList({ items }) {
                                     itemStatus[item.id]?.status === 'edit' ? (
                                         <IconButton
                                             onClick={() => {
-                                                console.log(inputRef.current)
-                                                data.set('id', item.id)
-                                                data.set(
-                                                    'todo',
-                                                    itemStatus[item.id].todo
-                                                )
-                                                data.set(
-                                                    'completed',
+                                                callActionUpdate(
+                                                    item.id,
+                                                    itemStatus[item.id].todo,
                                                     item.isCompleted
                                                 )
-                                                console.log(item)
-                                                submit(data, {
-                                                    method: 'PUT',
-                                                    action: '/todo',
-                                                })
-                                                reviseSetting(item.id, false)
+                                                editShow(item.id, false)
                                             }}
                                         >
                                             <SaveAsIcon />
@@ -107,7 +108,7 @@ export default function TodoList({ items }) {
 
                                             <IconButton
                                                 onClick={() =>
-                                                    reviseSetting(item.id, true)
+                                                    editShow(item.id, true)
                                                 }
                                             >
                                                 <BuildIcon />
@@ -125,14 +126,19 @@ export default function TodoList({ items }) {
                                         onChange={(e) => changeText(item.id, e)}
                                     />
                                 ) : (
-                                    <ListItemButton role={undefined} dense>
-                                        <ListItemIcon>
-                                            {item.isCompleted ? (
-                                                <Checkbox checked />
-                                            ) : (
-                                                <Checkbox />
-                                            )}
-                                        </ListItemIcon>
+                                    <ListItemButton
+                                        role={undefined}
+                                        dense
+                                        onClick={() => {
+                                            console.log(item)
+                                            callActionUpdate(
+                                                item.id,
+                                                item.todo,
+                                                !item.isCompleted
+                                            )
+                                        }}
+                                    >
+                                        <Checkbox checked={item.isCompleted} />
                                         <ListItemText
                                             id={labelId}
                                             primary={item.todo}
