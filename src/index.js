@@ -15,6 +15,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import axios from 'axios'
 
 // set router for dividing url of pages
+console.log(process.env)
 const router = createBrowserRouter([
     {
         path: '/',
