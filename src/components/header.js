@@ -42,7 +42,6 @@ export default function Header() {
         if (token) {
             let payload = token.split('.')[1]
             // only atob function is deprecated
-            console.log(decodeBase64(payload))
             setMail(JSON.parse(decodeBase64(payload)).email)
         }
     }, [])

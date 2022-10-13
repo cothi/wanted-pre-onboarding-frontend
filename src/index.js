@@ -11,10 +11,9 @@ import signUpAction from './actions/signUp'
 import signInAction from './actions/signIn'
 import todoAction from './actions/todos'
 import { todoApi } from './api/api'
-import { red } from '@mui/material/colors'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-
 import axios from 'axios'
+
 // set router for dividing url of pages
 const router = createBrowserRouter([
     {

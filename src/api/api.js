@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const END_POINT = 'http://192.168.0.6:8000'
+// const END_POINT = 'http://192.168.0.6:8000'
+const END_POINT = 'https://pre-onboarding-selection-task.shop'
 
 // auth api
 export const authApi = {
@@ -41,7 +42,7 @@ export const todoApi = {
     createTodo: ({ itemQuery }) => {
         const [item, token] = itemQuery
         const jsonQuery = JSON.stringify({
-                todo: item,
+            todo: item,
         })
         return axios({
             method: 'post',
@@ -75,7 +76,6 @@ export const todoApi = {
             .catch((err) => err)
     },
     updateTodo: ({ itemQuery }) => {
-        console.log(itemQuery)
         const [id, token, todo, completed] = itemQuery
         const jsonQuery = JSON.stringify({
             todo: todo,

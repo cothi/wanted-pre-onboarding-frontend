@@ -8,11 +8,11 @@ import {
     ListItemText,
     TextField,
 } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import DeleteIcon from '@mui/icons-material/Delete'
 import BuildIcon from '@mui/icons-material/Build'
-import { useSubmit } from 'react-router-dom'
+import { useActionData, useSubmit } from 'react-router-dom'
 import SaveAsIcon from '@mui/icons-material/SaveAs'
 
 /*
@@ -34,12 +34,26 @@ export default function TodoList({ items }) {
 
     const editShow = (id, show) => {
         let status = itemStatus
+
         if (show) {
-            status[id] = { status: 'edit' }
+            status[id] = { ...status, status: 'edit' }
             setItemStatus({ ...status })
-        } else {
-            status[id] = { status: '' }
+            return
         }
+        if (!status[id]?.todo) {
+            let error = {
+                type: 'input-update',
+                message: 'todo should not be empty',
+                id: id,
+            }
+            status[id] = {
+                ...status[id],
+                error: error,
+            }
+        } else {
+            status[id] = { ...status, status: '' }
+        }
+        setItemStatus({ ...status })
     }
 
     const callActionUpdate = (id, todo, isCompleted) => {
@@ -56,7 +70,9 @@ export default function TodoList({ items }) {
     }
     const changeText = (id, e) => {
         let tmpItemStatus = itemStatus
-        tmpItemStatus[id]['todo'] = e.target.value
+        tmpItemStatus[id] = {
+            todo: e.target.value,
+        }
         setItemStatus(tmpItemStatus)
     }
 
@@ -120,9 +136,26 @@ export default function TodoList({ items }) {
                             >
                                 {itemStatus[item.id]?.status === 'edit' ? (
                                     <StyledTextField
+                                        error={
+                                            itemStatus[item.id]?.error?.type ===
+                                                'input-update' &&
+                                            itemStatus[item.id]?.error?.id ===
+                                                item.id
+                                                ? true
+                                                : false
+                                        }
                                         id="filled-basic"
                                         label="Revise todo text"
                                         variant="filled"
+                                        helperText={
+                                            itemStatus[item.id]?.error?.type ===
+                                                'input-update' &&
+                                            itemStatus[item.id]?.error?.id ===
+                                                item.id
+                                                ? itemStatus[item.id]?.error
+                                                      ?.message
+                                                : null
+                                        }
                                         onChange={(e) => changeText(item.id, e)}
                                     />
                                 ) : (
@@ -130,7 +163,6 @@ export default function TodoList({ items }) {
                                         role={undefined}
                                         dense
                                         onClick={() => {
-                                            console.log(item)
                                             callActionUpdate(
                                                 item.id,
                                                 item.todo,
