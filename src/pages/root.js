@@ -26,6 +26,7 @@ const FormWrapper = styled.div`
     border-radius: 10px;
 `
 
+// index page, root compoent
 export default function Root() {
 
     return (

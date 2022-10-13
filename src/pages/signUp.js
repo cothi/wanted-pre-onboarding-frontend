@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import CreateForm from '../components/signUpForm'
 import styled from 'styled-components'
 import Header from '../components/header'

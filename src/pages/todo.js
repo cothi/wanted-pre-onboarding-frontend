@@ -26,6 +26,7 @@ const TodosWrapper = styled.div`
     border-radius: 10px;
 `
 
+// todo page, todo component
 export default function Todo() {
     const items = useLoaderData()
 

@@ -11,6 +11,8 @@ const Wrapper = styled.div`
     justify-content: center;
 `
 
+
+// error page
 export default function ErrorPage() {
     const error = useRouteError()
 

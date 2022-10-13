@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 // const END_POINT = 'http://192.168.0.6:8000'
-const END_POINT = 'https://pre-onboarding-selection-task.shop'
+// const END_POINT = 'https://pre-onboarding-selection-task.shop'
+const END_POINT = process.env.REACT_APP_API_ENDPOINT
 
 // auth api
 export const authApi = {

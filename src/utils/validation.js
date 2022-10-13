@@ -1,3 +1,4 @@
+// form user info validation check
 export function userValidation({ userInfo }) {
     const errors = {}
     const [email, password] = userInfo

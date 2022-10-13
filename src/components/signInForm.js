@@ -17,6 +17,7 @@ const Alert = styled.span`
     color: #f94449;
 `
 
+// login form component
 export default function LoginForm() {
     const nav = useNavigate()
     const errors = useActionData()

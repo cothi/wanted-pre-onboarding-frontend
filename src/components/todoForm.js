@@ -1,9 +1,9 @@
-import { TextField, Button } from '@mui/material'
+import { TextField } from '@mui/material'
 import styled from 'styled-components'
 import LoadingButton from '@mui/lab/LoadingButton'
 import SaveIcon from '@mui/icons-material/Save'
-import { Form, useActionData, useSubmit } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useActionData, useSubmit } from 'react-router-dom'
+import { useState } from 'react'
 
 const InputWrapper = styled.div`
     display: flex;
@@ -21,6 +21,7 @@ const StyledTextField = styled(TextField)`
     width: 80%;
 `
 
+// todo form component
 export default function TodoForm() {
     const [inputData, setInputData] = useState('')
     const [isLoading, setIsLoading] = useState(false)
@@ -37,7 +38,6 @@ export default function TodoForm() {
         })
         setIsLoading(false)
     }
-
 
     return (
         <StyledForm method="post">

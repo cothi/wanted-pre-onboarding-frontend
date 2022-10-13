@@ -15,6 +15,9 @@ const ContentForm = styled.div`
 const Alert = styled.span`
     color: #f94449;
 `
+
+
+// create form component
 export default function CreateForm() {
     const errors = useActionData()
     return (

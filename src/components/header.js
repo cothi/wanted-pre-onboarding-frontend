@@ -34,6 +34,7 @@ const StyledLogoutIcon = styled(LogoutIcon)`
     }
 `
 
+// header component
 export default function Header() {
     const nav = useNavigate()
     const [mail, setMail] = useState('')

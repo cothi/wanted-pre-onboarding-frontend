@@ -1,11 +1,14 @@
 import axios from 'axios'
 import { todoApi } from '../api/api'
+
+
+
+// todo action (post, delete, put of request method)
 export default async function todoAction({ request }) {
     let formData = await request.formData()
     const token = localStorage.getItem('token')
     let res, id, item, todo, completed, query
     let errors = {}
-    // let fromData = await request.formData()
 
     switch (request.method) {
         case 'POST':
@@ -21,10 +24,7 @@ export default async function todoAction({ request }) {
 
         case 'DELETE':
             id = formData.get('id')
-            /*             if (!id) {
-                errors.type = 'id'
-                errors.message = `don't exist id value`
-            } */
+
             query = [id, token]
             res = await todoApi.deleteTodo({ itemQuery: query })
             break
